@@ -1,0 +1,107 @@
+/*
+	Delete any tables with the same name that may have been present previously.
+*/
+DROP TABLE Players;
+DROP TABLE Teams;
+DROP TABLE Games;
+
+/*
+	Creating the necessary tables within the database along with their respective 
+	keys and allocations.
+	Three tables will be created:
+		1. Players
+		2. Teams
+		3. Games
+*/
+CREATE TABLE Players(
+playerID INT NOT NULL PRIMARY KEY AUTO_INCREMENT COMMENT 'League ID number of Player',
+playerName TINYTEXT COMMENT 'Name of Player',
+teamName TINYTEXT COMMENT 'Assigned Team' 
+);
+CREATE TABLE Teams(
+teamID INT,
+teamName varchar(40) PRIMARY KEY COMMENT 'Team\'s unique chosen name',
+coachName TINYTEXT COMMENT 'Team\'s head coach'
+);
+CREATE TABLE Games(
+gameID INT PRIMARY KEY COMMENT 'ID of game used in the Games Table.',
+homeTeam TINYTEXT,
+awayTeam TINYTEXT,
+gameTime DATETIME,
+homeWin INT,
+awayWin INT
+);
+
+/*
+	Inserting the appropriate values to populate the Teams table just
+	created with the necessary conditions.
+*/
+INSERT INTO Teams VALUES 
+(0, 'SpaceX', 'Elon Musk'), 
+(1, 'NASA', 'Dwight Eisenhower'),
+(2, 'Microsoft','Bill Gates'),
+(3, 'Google','Larry Page'),
+(4, 'Intel', 'Gordon Moore'),
+(5, 'Uber', 'Travis Kalanick');
+
+/*
+	Inserting the appropriate values to populate the Players table just 
+	created with the necessary conditions.
+*/
+INSERT INTO Players VALUES
+(0,'Garrett Camp','Uber'),
+(0,'Dara Khosrowshahi','Uber'),
+(0,'Luca Pozzi','Uber'),
+(0,'Susan Fowler','Uber'),
+(0,'Celina Mikolajczak','Uber');
+INSERT INTO Players VALUES
+(0,'Tom Mueller','SpaceX'),
+(0,'Gwynne Shotwell','SpaceX'),
+(0,'Hans Koenigsmann','SpaceX'),
+(0,'Garrett Reisman','SpaceX'),
+(0,'Douglas Hurley','SpaceX');
+INSERT INTO Players VALUES
+(0,'Robert Lightfoot','NASA'),
+(0,'Margaret Hamilton','NASA'),
+(0,'Neil Armstrong','NASA'),
+(0,'Buzz Aldrin','NASA'),
+(0,'Sally Ride','NASA');
+INSERT INTO Players VALUES
+(0,'Satya Nadella','Microsoft'),
+(0,'Paul Allen','Microsoft'),
+(0,'Peggy Johnson','Microsoft'),
+(0,'Jim Gray','Microsoft'),
+(0,'Gordon Bell','Microsoft');
+INSERT INTO Players VALUES
+(0,'Sergey Brin','Google'),
+(0,'Sundar Pichai','Google'),
+(0,'Jeff Dean','Google'),
+(0,'Mary Ross','Google'),
+(0,'Sanjay Ghemawat','Google');
+INSERT INTO Players VALUES
+(0,'Robert Noyce','Intel'),
+(0,'Robert Swan','Intel'),
+(0,'Ann Kelleher','Intel'),
+(0,'Jim Keller','Intel'),
+(0,'Renee James','Intel');
+
+/*
+	Inserting the appropriate values to populate the Games table just 
+	created with the necessary conditions.
+*/
+INSERT INTO Games VALUES 
+(0, 'Uber', 'SpaceX', '2019-09-7 8:00:00', NULL, NULL),
+(1, 'Uber', 'Microsoft', '2019-09-7 9:00:00', NULL, NULL),
+(2, 'Uber', 'Google', '2019-09-7 10:00:00', NULL, NULL),
+(3, 'NASA', 'Uber', '2019-09-7 11:00:00', NULL, NULL),
+(4, 'Intel', 'Uber', '2019-09-7 12:00:00', NULL, NULL),
+(5, 'Microsoft', 'SpaceX', '2019-09-7 10:00:00', NULL, NULL),
+(6, 'SpaceX', 'Google', '2019-09-7 9:00:00', NULL, NULL),
+(7, 'SpaceX', 'NASA', '2019-09-7 12:00:00', NULL, NULL),
+(8, 'Intel', 'SpaceX', '2019-09-7 11:00:00', NULL, NULL),
+(9, 'Google', 'Microsoft', '2019-09-7 8:00:00', NULL, NULL),
+(10, 'NASA', 'Microsoft', '2019-09-14 13:00:00', NULL, NULL),
+(11, 'Microsoft', 'Intel', '2019-09-14 14:00:00', NULL, NULL),
+(12, 'Google', 'NASA', '2019-09-14 14:00:00', NULL, NULL),
+(13, 'Google', 'Intel', '2019-09-14 13:00:00', NULL, NULL),
+(14, 'Intel', 'NASA', '2019-09-14 8:00:00', NULL, NULL);

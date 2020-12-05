@@ -1,0 +1,9 @@
+DROP PROCEDURE IF EXISTS teamPlayer;
+
+DELIMITER //
+CREATE PROCEDURE teamPlayer(IN name VARCHAR(20))
+BEGIN
+  SELECT teamName
+  FROM Players WHERE name = playerName;
+END //
+DELIMITER ;

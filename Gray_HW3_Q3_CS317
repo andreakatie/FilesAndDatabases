@@ -1,0 +1,6 @@
+/*
+	Dropping each table from the Soccer League Database
+*/
+DROP TABLE Players;
+DROP TABLE Teams;
+DROP TABLE Games;

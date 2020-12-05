@@ -1,0 +1,7 @@
+DROP PROCEDURE IF EXISTS get_teams;
+DELIMITER //
+CREATE PROCEDURE get_teams()
+BEGIN
+  SELECT teamName FROM Teams;
+END //
+DELIMITER ;

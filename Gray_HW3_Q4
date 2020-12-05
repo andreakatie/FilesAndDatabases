@@ -1,0 +1,63 @@
+/*
+	For Question 4a this is a query for outputting a table with 
+	each players name along with their team name and their coach's name.
+*/
+SELECT Players.playerName, Teams.teamName, coachName FROM
+Players INNER JOIN Teams ON Players.teamName = Teams.teamName;
+
+/*
+	The second possible solution to Question 4a which provides a query
+	for outputting a table with a specific player's name, thier team 
+	name, and thier coaches name.
+*/
+SELECT Players.playerName, Teams.teamName, coachName FROM
+Players INNER JOIN Teams ON Players.teamName = Teams.teamName WHERE 
+Players.playerName = 'Luca Pozzi';
+
+/*
+	For Question 4b, the following query is replicating the first table
+	shown under 4b in the assignment expectations document. This query 
+	result outputs a table with a particular player's name, the times
+	they are playing in a game, and whether their team is needing to 
+	provide the after-game snack.
+*/
+SELECT * FROM (SELECT playerName, gameTime, 1 AS snack FROM 
+(Games INNER JOIN Players ON Games.homeTeam = Players.teamName) 
+WHERE homeTeam IN (SELECT teamName FROM Players) UNION SELECT 
+playerName, gameTime, 0 AS snack FROM (Games INNER JOIN Players ON 
+Games.awayTeam = Players.teamName) WHERE awayTeam IN (SELECT 
+teamName FROM Players)) AS table1 WHERE playerName = 'Luca Pozzi' 
+ORDER BY gameTime;
+
+/*
+	For Question 4b, the following query is replicating the second table
+	shown under 4b in the assignment expectations document. This query's
+	result outputs a table with the same keys as the table before along
+	with the team they are playing against. The game time is renamed to
+	the time they need to be there by also. 
+*/
+SELECT * FROM (SELECT playerName, awayTeam AS against, gameTime AS 
+be_there, 1 AS snack FROM (Games INNER JOIN Players ON Games.homeTeam = 
+Players.teamName) WHERE homeTeam IN (SELECT teamName FROM Players) 
+UNION SELECT playerName, homeTeam AS against, gameTime, 0 AS snack 
+FROM (Games INNER JOIN Players ON Games.awayTeam = Players.teamName) 
+WHERE awayTeam IN (SELECT teamName FROM Players)) AS table1 WHERE 
+playerName = 'Luca Pozzi' ORDER BY be_there;
+
+/*
+	For Question 4b, the following query is replicating the third table 
+	shown under 4b in the assignment expectations document. This query's
+	result outputs a table with the same keys as the table before along 
+	with who the team will be lead by (or who their coach is).
+*/
+SELECT playerName, against, gameTime AS be_there, snack, coachName 
+AS lead_by FROM (SELECT Players.playerName, against, gameTime, snack, 
+teamName FROM (SELECT * FROM (SELECT playerName, awayTeam AS 
+against, gameTime, 1 AS snack FROM (Games INNER JOIN Players ON 
+Games.homeTeam = Players.teamName) WHERE homeTeam IN (SELECT teamName 
+FROM Players) UNION SELECT playerName, homeTeam AS against, gameTime, 
+0 AS snack FROM (Games INNER JOIN Players ON Games.awayTeam = 
+Players.teamName) WHERE awayTeam IN (SELECT teamName FROM Players)) AS 
+table1 WHERE playerName = 'Luca Pozzi' ORDER BY gameTime) AS table2 
+INNER JOIN Players ON table2.playerName = Players.playerName) AS 
+table3 INNER JOIN Teams ON table3.teamName = Teams.teamName;
